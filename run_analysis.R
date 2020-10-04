@@ -46,5 +46,5 @@ cleaningData <- function() {
   
   ## The tidy data set with the average of each variable for each activity and each subject is created and is exported as a csv file.
   tidyData <- mergedDataSet %>% group_by(SubjectID, Activities) %>% summarise(across(.fns = mean))
-  write.csv(tidyData, "TidyData.csv")
+  write.table(tidyData, "TidyData.txt", row.names = FALSE)
 }
