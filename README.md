@@ -27,7 +27,7 @@ A function is created which contains all the necessary code blocks that is requi
 cleaningData <- function() {
 ```
 The working directory is set outside the UCI HAR Dataset folder and the appropriate path names are given while reading the data which is scattered through multiple folders.
-The features and activity label are read first.
+The features and activity label are read first using `read.table()`.
 
         features <- read.table("../UCI HAR Dataset/features.txt")  
         activityLabels <- read.table("../UCI HAR Dataset/activity_labels.txt") 
@@ -81,11 +81,14 @@ The variables should have proper descriptive names and are changed using `gsub()
 Finally, a tidy data set with the average of each variable for each activity and each subject is created by using some `dplyr::` functions which are chained.
 > Note : The `dplyr::` package should be loaded onto the workspace initially.
 
-A csv file is exported containing the tidy data set.
+A csv file is exported containing the tidy data set using `write.csv()`.
 ```
     tidyData <- mergedDataSet %>% group_by(SubjectID, Activities) %>% summarise(across(.fns = mean))
     write.csv(tidyData, "TidyData.csv")
-}
+```
+Or alternatively `write.table()` function can be used to export the data set in .txt format.
+```
+    write.table(tidyData, "TidyData.txt", row.names = FALSE)
 ```
 
 ***
